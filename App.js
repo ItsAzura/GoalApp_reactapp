@@ -4,29 +4,44 @@ import GoalItems from "./components/GoalItems";
 import GoalInput from "./components/GoalInput";
 
 export default function App() {
+  //Định nghĩa state của visible của model
   const [modalIsVisible, setModalIsVisible] = useState(false);
+  //Định nghĩa state của courseGoals
   const [courseGoals, setCourseGoals] = useState([]);
 
+  //Đinh nghĩa hàm addGoalHandler
   function addGoalHandler(enterGoalText) {
     console.log("Add Goal Handler - ", enterGoalText);
+    //cập nhật trạng thái của courseGoals
     setCourseGoals((currentCourseGoals) => [
-      ...currentCourseGoals,
-      { text: enterGoalText, key: Math.random().toString() },
+      ...currentCourseGoals, //thêm mục mới vào cuối bảng
+      {
+        text: enterGoalText,
+        key: Math.random().toString(), //tạo key ngẫu nhiên
+      },
     ]);
     setModalIsVisible(false);
   }
 
+  //Đinh nghĩa hàm deleteGoalHandler
   function deleteGoalHandler(goalId) {
     console.log("Delete");
+    //cập nhật trạng thái của courseGoals
     setCourseGoals((currentCourseGoals) => {
-      return currentCourseGoals.filter((goal) => goal.key !== goalId);
+      return (
+        currentCourseGoals
+          //lọc ra các mục có key khác với key của mục cần xóa
+          .filter((goal) => goal.key !== goalId)
+      );
     });
   }
 
+  //Định nghĩa hàm hiện thị AddGoal
   function startAddGoalHandler() {
     setModalIsVisible(true);
   }
 
+  //Định nghĩa hàm ẩn AddGoal
   function cancelAddGoalHandler() {
     setModalIsVisible(false);
   }
@@ -37,12 +52,12 @@ export default function App() {
         style={styles.addBtn}
         title="Add New Goal"
         color="#ffc8dd"
-        onPress={startAddGoalHandler}
+        onPress={startAddGoalHandler} //gọi hàm hiện thị AddGoal
       />
       <GoalInput
         visible={modalIsVisible}
         onAddGoal={addGoalHandler}
-        onCancel={cancelAddGoalHandler}
+        onCancel={cancelAddGoalHandler} //gọi hàm ẩn AddGoal
       />
       <View style={styles.listContainer}>
         <FlatList
@@ -50,9 +65,9 @@ export default function App() {
           renderItem={(items) => {
             return (
               <GoalItems
-                text={items.item.text}
-                id={items.item.key}
-                onDeleteItem={deleteGoalHandler}
+                text={items.item.text} //truyền text của mục
+                id={items.item.key} //truyền key của mục
+                onDeleteItem={deleteGoalHandler} //gọi hàm xóa mục
               />
             );
           }}

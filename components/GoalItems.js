@@ -9,7 +9,7 @@ function GoalItems(props) {
       <Pressable
         android_ripple={{ color: "#dddddd" }}
         style={styles.btnItem}
-        onPress={props.onDeleteItem.bind(this, props.id)}
+        onPress={props.onDeleteItem.bind(this, props.id)} //gọi hàm xoá mục bên App.js
       >
         <Text style={styles.itemText}>Delete</Text>
       </Pressable>

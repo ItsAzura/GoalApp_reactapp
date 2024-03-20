@@ -9,15 +9,18 @@ import {
 } from "react-native";
 
 function GoalInput(props) {
+  //Định nghĩa state khi nhập text
   const [enteredGoalText, setEnteredGoalText] = useState("");
 
+  //Định nghĩa hàm xử lý khi nhập text vào TextInput
   function goalInputHandler(enteredText) {
-    setEnteredGoalText(enteredText);
+    setEnteredGoalText(enteredText); //cập nhật trạng thái của enteredGoalText
   }
 
+  //Định nghĩa hàm xử lý khi nhấn nút Add Goal
   function addGoalHandler() {
-    props.onAddGoal(enteredGoalText);
-    setEnteredGoalText("");
+    props.onAddGoal(enteredGoalText); //gọi hàm onAddGoal từ App.js
+    setEnteredGoalText(""); //làm rông TextInput
   }
 
   return (
@@ -27,15 +30,23 @@ function GoalInput(props) {
         <TextInput
           style={styles.textInput}
           placeholder="Your course goal!"
-          onChangeText={goalInputHandler}
-          value={enteredGoalText}
+          onChangeText={goalInputHandler} //gọi hàm goalInputHandler
+          value={enteredGoalText} //hiển thị giá trị của enteredGoalText
         />
         <View style={styles.btnContainer}>
           <View style={styles.Btn}>
-            <Button title="Add Goal" color="#a2d2ff" onPress={addGoalHandler} />
+            <Button
+              title="Add Goal"
+              color="#a2d2ff"
+              onPress={addGoalHandler} //gọi hàm để thêm vào item mới
+            />
           </View>
           <View style={styles.Btn}>
-            <Button title="Cancel" color="#ffafcc" onPress={props.onCancel} />
+            <Button
+              title="Cancel"
+              color="#ffafcc"
+              onPress={props.onCancel} //gọi hàm để huỷ bỏ
+            />
           </View>
         </View>
       </View>
